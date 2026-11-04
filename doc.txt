@@ -1,0 +1,414 @@
+2.
+<dependencies>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>5.11.4</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+
+
+package org.example;
+
+public class Main {
+
+    public static double celsiusToFahrenheit(double celsius) {
+        return (celsius * 9 / 5) + 32;
+    }
+}
+
+
+package org.example;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class MainTest {
+
+    @Test
+    public void testTemperatureConversion() {
+        assertEquals(77.0, Main.celsiusToFahrenheit(25), 0.001);
+    }
+}
+
+
+3.
+
+sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+
+sudo apt-get install -y jenkins
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+4.
+
+public class Calculator {
+
+    public int add(int a, int b) {
+        return a + b;
+    }
+}
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class CalculatorTest {
+
+    @Test
+    void testAddition() {
+        Calculator calculator = new Calculator();
+        assertEquals(5, calculator.add(2, 3));
+    }
+}
+
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                url: 'https://github.com/abinaya270107/Devops_Experiment04.git'
+            }
+        }
+
+        stage('Build and Test') {
+            steps {
+                sh 'mvn clean test'
+            }
+        }
+    }
+}
+
+5.
+
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code...'
+                git branch: 'main',
+                url: 'https://github.com/Chaathurya-t/devops_ex_5.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building the application...'
+                sh 'echo Build completed'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh 'echo Tests passed'
+            }
+        }
+    }
+
+    post {
+
+        success {
+            mail to: 'chaathuryat@gmail.com',
+            subject: "Build #${env.BUILD_NUMBER} SUCCESS - ${env.JOB_NAME}",
+            body: "The pipeline ${env.JOB_NAME} (build #${env.BUILD_NUMBER}) completed successfully. Details: ${env.BUILD_URL}"
+        }
+
+        failure {
+            mail to: 'chaathuryat@gmail.com',
+            subject: "Build #${env.BUILD_NUMBER} FAILED - ${env.JOB_NAME}",
+            body: "The pipeline ${env.JOB_NAME} (build #${env.BUILD_NUMBER}) failed. Check the console: ${env.BUILD_URL}console"
+        }
+    }
+}
+
+sudo docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
+
+6.
+
+sudo apt update
+sudo apt install ansible -y
+ansible --version
+mkdir -p ~/ansible-webapp
+cd ~/ansible-webapp
+nano webapp.yml
+---
+- name: Deploy a Modern Web Application
+  hosts: localhost
+  connection: local
+  become: true
+
+  tasks:
+
+    - name: Install Apache web server
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+        update_cache: true
+
+    - name: Start and enable Apache
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
+
+    - name: Deploy the modern web application
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>DeployFlow</title>
+          </head>
+          <body>
+              <h1>Welcome to DeployFlow!</h1>
+              <p>Web application deployed successfully using Ansible.</p>
+          </body>
+          </html>
+        mode: "0644"
+
+    - name: Verify the web application
+      ansible.builtin.uri:
+        url: http://127.0.0.1/
+        status_code: 200
+      register: web_result
+
+    - name: Display deployment status
+      ansible.builtin.debug:
+        msg: "DeployFlow web application deployed successfully!"
+ansible-playbook -i 'localhost,' -c local webapp.yml --ask-become-pass
+sudo systemctl status apache2
+curl http://localhost
+
+
+7a.
+sudo snap install gradle --classic
+gradle --version
+mkdir java_application
+cd java_application
+gradle init
+sudo apt update
+sudo apt install tree -y
+tree
+./gradlew run
+cd app/src/main/java
+ls
+nano App.java
+package org.example;
+
+public class App {
+    public static void main(String[] args) {
+
+        int a = 20;
+        int b = 10;
+
+        System.out.println("Addition: " + (a + b));
+        System.out.println("Subtraction: " + (a - b));
+        System.out.println("Multiplication: " + (a * b));
+        System.out.println("Division: " + (a / b));
+    }
+}
+cd ~/java_application
+nano app/build.gradle
+./gradlew run
+
+
+# 1. Install Gradle
+sudo snap install gradle --classic
+
+# 2. Create project
+mkdir java_application
+cd java_application
+
+# 3. Initialize Gradle
+gradle init
+
+# 4. Install tree
+sudo apt update
+sudo apt install tree -y
+
+# 5. View project structure
+tree
+
+# 6. Run default application
+./gradlew run
+
+# 7. Navigate to Java source
+cd app/src/main/java/org/example
+
+# 8. Edit Java program
+nano App.java
+
+# 9. Return to project root
+cd ~/java_application
+
+# 10. Edit build configuration
+nano app/build.gradle
+
+# 11. Run arithmetic program
+./gradlew run
+
+# 12. Initialize Git
+git init
+
+# 13. Add files
+git add .
+
+# 14. Check status
+git status
+
+# 15. Commit
+git commit -m "First Commit"
+
+# 16. Check status
+git status
+
+# 17. Rename branch
+git branch -M main
+
+# 18. Connect remote
+git remote add origin https://github.com/USERNAME/REPOSITORY.git
+
+# 19. Push
+git push -u origin main
+
+
+
+7b.
+plugins {
+    id 'application'
+}
+
+group = 'com.example'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+}
+
+application {
+    mainClass = 'com.example.Main'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My First Website</title>
+</head>
+
+<body>
+
+    <h1>Welcome to My Website</h1>
+
+    <h2>Gradle Experiment 7b</h2>
+
+    <p>This is a simple static website created using HTML.</p>
+
+    <h3>About Me</h3>
+
+    <p>Hello! I am a Computer Science student.</p>
+
+    <h3>My Skills</h3>
+
+    <ul>
+        <li>Java</li>
+        <li>Python</li>
+        <li>HTML</li>
+    </ul>
+
+    <h3>Contact</h3>
+
+    <p>Email: student@gmail.com</p>
+
+    <button onclick="alert('Welcome to my website!')">
+        Click Me
+    </button>
+
+</body>
+</html>
+```
+
+8.
+sudo apt update
+sudo apt upgrade
+sudo apt install -y software-properties-common
+sudo add-apt-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
+ansible --version
+
+sudo mkdir -p /etc/ansible
+cd /etc/ansible
+
+sudo ansible-galaxy init prerequisites
+sudo ansible-galaxy init PostgreSQL
+sudo ansible-galaxy init apache
+
+cd /etc/ansible/prerequisites/tasks
+sudo nano main.yml
+# tasks file for prerequisites
+- name: Install git
+  apt:
+    name: git
+    state: present
+    update_cache: yes
+
+
+cd /etc/ansible/PostgreSQL/tasks
+sudo nano main.yml
+# tasks file for PostgreSQL
+
+- name: Install PostgreSQL
+  apt:
+    name: postgresql
+    state: present
+    update_cache: yes
+
+- name: Start PostgreSQL service
+  systemd:
+    name: postgresql
+    state: started
+    enabled: yes
+
+
+cd /etc/ansible/apache/tasks
+sudo nano main.yml
+# tasks file for apache
+
+- name: install Apache web server
+  apt:
+    name: apache2
+    state: present
+    update_cache: yes
+
+cd /etc/ansible
+sudo nano stack.yml
+- hosts: localhost
+  become: true
+  roles:
+    - prerequisites
+    - PostgreSQL
+    - apache
+
+sudo ansible-playbook stack.yml
+
+
+git --version
+apache2 -v
+psql --version
+sudo systemctl status postgresql
