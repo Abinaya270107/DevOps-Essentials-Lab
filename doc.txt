@@ -343,6 +343,8 @@ test {
 </body>
 </html>
 ```
+gradle jar
+java -jar ./build/libs/DevOps-Demo.jar
 
 8.
 sudo apt update
