@@ -414,3 +414,207 @@ git --version
 apache2 -v
 psql --version
 sudo systemctl status postgresql
+
+
+
+public class Fibonacci {
+
+    public int fibonacci(int n) {
+
+        if (n <= 1) {
+            return n;
+        }
+
+        int a = 0, b = 1, c = 0;
+
+        for (int i = 2; i <= n; i++) {
+            c = a + b;
+            a = b;
+            b = c;
+        }
+
+        return c;
+    }
+}
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class FibonacciTest {
+
+    @Test
+    void testFibonacci() {
+        Fibonacci f = new Fibonacci();
+
+        assertEquals(0, f.fibonacci(0));
+        assertEquals(1, f.fibonacci(1));
+        assertEquals(1, f.fibonacci(2));
+        assertEquals(5, f.fibonacci(5));
+        assertEquals(8, f.fibonacci(6));
+    }
+}
+
+public class Palindrome {
+
+    public boolean isPalindrome(int n) {
+
+        int original = n;
+        int reverse = 0;
+
+        while (n > 0) {
+            int digit = n % 10;
+            reverse = reverse * 10 + digit;
+            n = n / 10;
+        }
+
+        return original == reverse;
+    }
+}
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class PalindromeTest {
+
+    @Test
+    void testPalindrome() {
+        Palindrome p = new Palindrome();
+
+        assertTrue(p.isPalindrome(121));
+        assertTrue(p.isPalindrome( madam));
+        assertFalse(p.isPalindrome(123));
+    }
+}
+
+public class OddEven {
+
+    public boolean isEven(int n) {
+        return n % 2 == 0;
+    }
+}
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class OddEvenTest {
+
+    @Test
+    void testEven() {
+        OddEven obj = new OddEven();
+
+        assertTrue(obj.isEven(4));
+        assertTrue(obj.isEven(10));
+        assertFalse(obj.isEven(7));
+        assertFalse(obj.isEven(9));
+    }
+}
+
+public class LeapYear {
+
+    public boolean isLeapYear(int year) {
+
+        if (year % 400 == 0) {
+            return true;
+        }
+
+        if (year % 100 == 0) {
+            return false;
+        }
+
+        return year % 4 == 0;
+    }
+}
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class LeapYearTest {
+
+    @Test
+    void testLeapYear() {
+        LeapYear obj = new LeapYear();
+
+        assertTrue(obj.isLeapYear(2024));
+        assertTrue(obj.isLeapYear(2000));
+        assertFalse(obj.isLeapYear(2023));
+        assertFalse(obj.isLeapYear(1900));
+    }
+}
+
+public class VowelConsonant {
+
+    public boolean isVowel(char ch) {
+
+        ch = Character.toLowerCase(ch);
+
+        return ch == 'a' || ch == 'e' || ch == 'i' ||
+               ch == 'o' || ch == 'u';
+    }
+}
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class VowelConsonantTest {
+
+    @Test
+    void testVowelConsonant() {
+
+        VowelConsonant obj = new VowelConsonant();
+
+        assertTrue(obj.isVowel('a'));
+        assertTrue(obj.isVowel('E'));
+        assertTrue(obj.isVowel('i'));
+
+        assertFalse(obj.isVowel('b'));
+        assertFalse(obj.isVowel('z'));
+    }
+}
+
+public class SimpleInterest {
+
+    public double calculateSI(double p, double r, double t) {
+        return (p * r * t) / 100;
+    }
+}
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class SimpleInterestTest {
+
+    @Test
+    void testSimpleInterest() {
+
+        SimpleInterest obj = new SimpleInterest();
+
+        assertEquals(500, obj.calculateSI(5000, 10, 1));
+        assertEquals(1000, obj.calculateSI(10000, 5, 2));
+        assertEquals(150, obj.calculateSI(3000, 5, 1));
+    }
+}
+
+public class StudentResult {
+
+    public boolean isPass(int marks) {
+        return marks >= 40;
+    }
+}
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class StudentResultTest {
+
+    @Test
+    void testPassFail() {
+
+        StudentResult obj = new StudentResult();
+
+        assertTrue(obj.isPass(75));
+        assertTrue(obj.isPass(40));
+        assertFalse(obj.isPass(35));
+        assertFalse(obj.isPass(0));
+    }
+}
+
