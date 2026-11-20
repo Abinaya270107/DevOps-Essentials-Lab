@@ -43,6 +43,18 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 4.
 
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.2.5</version>
+        </plugin>
+    </plugins>
+</build>
+
+
 public class Calculator {
 
     public int add(int a, int b) {
@@ -137,15 +149,32 @@ sudo apt install ansible -y
 ansible --version
 mkdir -p ~/ansible-webapp
 cd ~/ansible-webapp
+nano webpage.html
+
+<html>
+<head>
+    <title>My Website</title>
+</head>
+<body bgcolor="lightblue">
+    <center>
+        <h1>Welcome to DeployFlow</h1>
+        <h2>My Web Application</h2>
+        <p>Created using Ansible</p>
+        <h3>Apache Web Server</h3>
+        <p>Website deployed successfully!</p>
+    </center>
+</body>
+</html>
+
 nano webapp.yml
+
 ---
-- name: Deploy a Modern Web Application
+- name: Deploy a Web Application
   hosts: localhost
   connection: local
   become: true
 
   tasks:
-
     - name: Install Apache web server
       ansible.builtin.apt:
         name: apache2
@@ -158,32 +187,21 @@ nano webapp.yml
         state: started
         enabled: true
 
-    - name: Deploy the modern web application
+    - name: Deploy the web application
       ansible.builtin.copy:
+        src: webpage.html
         dest: /var/www/html/index.html
-        content: |
-          <!DOCTYPE html>
-          <html>
-          <head>
-              <title>DeployFlow</title>
-          </head>
-          <body>
-              <h1>Welcome to DeployFlow!</h1>
-              <p>Web application deployed successfully using Ansible.</p>
-          </body>
-          </html>
         mode: "0644"
 
     - name: Verify the web application
       ansible.builtin.uri:
         url: http://127.0.0.1/
         status_code: 200
-      register: web_result
 
     - name: Display deployment status
       ansible.builtin.debug:
-        msg: "DeployFlow web application deployed successfully!"
-ansible-playbook -i 'localhost,' -c local webapp.yml --ask-become-pass
+        msg: "Web application deployed successfully!"
+sudo ansible-playbook webapp.yml
 sudo systemctl status apache2
 curl http://localhost
 
@@ -278,6 +296,38 @@ git remote add origin https://github.com/USERNAME/REPOSITORY.git
 
 # 19. Push
 git push -u origin main
+
+
+plugins {
+    id 'application'
+}
+
+application {
+    mainClass = 'org.example.App'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'org.example.App'
+    }
+}
+
+
+# 1. Compile Java program
+.\gradlew compileJava
+
+# 2. Package application into JAR
+.\gradlew jar
+
+# 3. Check generated JAR
+ls build/libs/
+
+# 4. Execute JAR file
+java -jar build/libs/gradle.jar
+
+# 5. Display project structure
+tree /F
+
 
 
 
