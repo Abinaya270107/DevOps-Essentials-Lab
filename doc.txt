@@ -668,3 +668,13 @@ class StudentResultTest {
     }
 }
 
+
+sudo apt install openjdk-21-jdk -y
+sudo mkdir -p /var/lib/jenkins-8082
+sudo mkdir -p /var/cache/jenkins-8082/war
+sudo chown -R jenkins:jenkins /var/lib/jenkins-8082
+sudo chown -R jenkins:jenkins /var/cache/jenkins-8082
+sudo -u jenkins env JENKINS_HOME=/var/lib/jenkins-8082 nohup java -Djava.awt.headless=true -jar /usr/share/java/jenkins.war --httpPort=8082 --webroot=/var/cache/jenkins-8082/war > /tmp/jenkins-8082.log 2>&1 &
+
+sudo ss -ltnp | grep :8082
+sudo cat /var/lib/jenkins-8082/secrets/initialAdminPassword
